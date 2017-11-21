@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/container"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="16dp"
+	android:orientation="vertical"
+	tools:context=".main.MainActivity">
+
+	<EditText
+		android:id="@+id/input_first_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="text"
+		android:hint="Jirka" />
+
+	<EditText
+		android:id="@+id/input_last_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="text"
+		android:hint="Sirka" />
+	<EditText
+		android:id="@+id/input_age"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="number"
+		android:hint="21" />
+
+	<TextView
+		android:id="@+id/output_first_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="42dp"
+		tools:text="Jirka" />
+
+	<TextView
+		android:id="@+id/output_last_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		tools:text="Sirka" />
+
+	<TextView
+		android:id="@+id/output_age"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		tools:text="21" />
+
+</LinearLayout>

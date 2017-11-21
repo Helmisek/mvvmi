@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply from: rootProject.file('gradle/generated-kotlin-sources.gradle')
+
+android {
+	compileSdkVersion 26
+	defaultConfig {
+		applicationId "cz.helmisek.mvvmi"
+		minSdkVersion 21
+		targetSdkVersion 26
+		versionCode 1
+		versionName "1.0"
+	}
+	buildTypes {
+		release {
+			postprocessing {
+				removeUnusedCode false
+				removeUnusedResources false
+				obfuscate false
+				optimizeCode false
+				proguardFile 'proguard-rules.pro'
+			}
+		}
+	}
+	sourceSets {
+		main.java.srcDirs += 'src/main/kotlin'
+		debug.java.srcDirs += 'build/generated/source/kaptKotlin/debug'
+		release.java.srcDirs += 'build/generated/source/kaptKotlin/release'
+	}
+}
+
+dependencies {
+	implementation fileTree(include: ['*.jar'], dir: 'libs')
+	implementation project(':lib')
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+	implementation 'com.android.support:appcompat-v7:26.1.0'
+	implementation 'android.arch.lifecycle:extensions:1.0.0'
+	implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
+	implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+	// Because RxAndroid releases are few and far between, it is recommended you also
+	// explicitly depend on RxJava's latest version for bug fixes and new features.
+	implementation 'io.reactivex.rxjava2:rxjava:2.1.6'
+	implementation 'io.kategory:kategory:0.3.11'
+	kapt 'io.kategory:kategory-annotations-processor:0.3.11'
+	implementation 'io.kategory:kategory-optics:0.3.11'
+}
