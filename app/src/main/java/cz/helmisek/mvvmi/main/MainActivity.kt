@@ -45,7 +45,7 @@ class MainActivity : BaseActivity() {
         runDisposable(RxTextView.afterTextChangeEvents(textView).flatMap {
             Observable.just(it.editable()?.toString())
         }.subscribe({
-            vm.notifyUiModelResult(transform.invoke(it ?: ""))
+            vm.notifyUiModelResult(transform(it ?: ""))
         }))
     }
 
