@@ -3,8 +3,11 @@ package cz.helmisek.mvvmilib
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import cz.helmisek.mvvmilib.monads.Either
+import cz.helmisek.mvvmilib.monads.error
+import cz.helmisek.mvvmilib.monads.value
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
@@ -21,13 +24,22 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    fun runDisposable(disposable: Disposable) {
-        composite.add(disposable)
-    }
-
     override fun onDestroy() {
         composite.dispose()
         super.onDestroy()
+    }
+
+    fun <ER : Throwable, V> Observable<V>.observe(observer: (Either<ER, V>) -> Unit) {
+        composite.add(this.subscribe(
+                { observer(value(it)) },
+                { observer(error(it) as Either<ER, V>) }
+        ))
+    }
+
+    fun <V> Observable<V>.observeSimple(observer: (V) -> Unit) {
+        composite.add(this.subscribe(
+                { observer(it) }
+        ))
     }
 
 }
